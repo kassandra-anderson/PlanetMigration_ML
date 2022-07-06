@@ -1,8 +1,11 @@
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
-def train_model(X_train, y_train, pipeline, parameters, cv, score, seed, n_iter = 10, search="random"):
 
-    """ Fits the training data and performs hyperparameter tuning using either a grid search or randomized search.
+def train_model(
+    X_train, y_train, pipeline, parameters, cv, score, seed, n_iter=10, search="random"
+):
+
+    """Fits the training data and performs hyperparameter tuning using either a grid search or randomized search.
 
     Input:
     X_train, y_train: training data
@@ -20,17 +23,11 @@ def train_model(X_train, y_train, pipeline, parameters, cv, score, seed, n_iter 
 
     # Create either a GridSearchCV or RandomizedSearchCV object
     if search == "grid":
-        search_cv = GridSearchCV(pipeline,
-                                 parameters,
-                                 cv=cv,
-                                 scoring=score)
+        search_cv = GridSearchCV(pipeline, parameters, cv=cv, scoring=score)
     else:
-        search_cv = RandomizedSearchCV(pipeline,
-                                       parameters,
-                                       n_iter=n_iter,
-                                       cv=cv,
-                                       scoring=score,
-                                       random_state=seed)
+        search_cv = RandomizedSearchCV(
+            pipeline, parameters, n_iter=n_iter, cv=cv, scoring=score, random_state=seed
+        )
 
     # Fit to the training set and get predictions for the test set
     search_cv.fit(X_train, y_train)
@@ -45,16 +42,3 @@ def train_model(X_train, y_train, pipeline, parameters, cv, score, seed, n_iter 
     print("Printing updated pipeline params: \n", pipeline.get_params())
 
     return pipeline
-
-
-
-
-
-
-
-
-
-
-
-
-

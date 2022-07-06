@@ -1,15 +1,16 @@
-
-def split_store_data(fname,
-                     ylabel,
-                     outpath = "../training_data/",
-                     test_size = 0.33,
-                     seed = 0,
-                     return_df = False,
-                     save_pkl = False):
+def split_store_data(
+    fname,
+    ylabel,
+    outpath="../training_data/",
+    test_size=0.33,
+    seed=0,
+    return_df=False,
+    save_pkl=False,
+):
 
     """Takes the input data and splits into training and test sets according to the desired test_size.
     Returns dataframes containing the training and test sets if return_df is set to True.
-    Pickles these dataframes if save_pkl is set to True. """
+    Pickles these dataframes if save_pkl is set to True."""
 
     import pandas as pd
     from sklearn.model_selection import train_test_split
@@ -25,7 +26,9 @@ def split_store_data(fname,
     y = df[ylabel]
 
     # Split into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=seed, stratify=y)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=seed, stratify=y
+    )
 
     # Create dataframes of train and test data and pickle for use later
     df_train = pd.DataFrame(X_train)
@@ -47,8 +50,7 @@ def split_store_data(fname,
 
 if __name__ == "__main__":
     import sys
+
     seed = int(sys.argv[1])
     fname = "../training_data/alldata_additional_features.csv"
-    split_store_data(fname, "flag", seed = seed, save_pkl = True)
-
-
+    split_store_data(fname, "flag", seed=seed, save_pkl=True)
